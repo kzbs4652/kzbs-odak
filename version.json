@@ -1,7 +1,7 @@
 {
-  "latestVersionCode": 1,
-  "latestVersionName": "1.0.0",
-  "changelog": "• KZBS ODAK v1.0.0 İlk Sürüm\n• Tavizsiz Odak Modu (Pes Etmek Yok)\n• Çift Korumalı Uygulama Kilidi ve Bildirim Susturma\n• 30dk / 60dk / 90dk + Özel Süre Seçimi\n• Samsung One UI Uyumlu Kilit Ekranı\n• Telefon Kapanıp Açılsa Bile Kalan Süreden Devam\n• Göz Yormayan Koyu OLED Arayüz",
-  "apkUrl": "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/KZBS_ODAK_v1.0.0.apk",
+  "latestVersionCode": 2,
+  "latestVersionName": "1.1.0",
+  "changelog": "• Samsung One UI Kilit Ekranı ve Hızlı Atma Düzeltildi\n• Özel Süre Seçimi Hatası Giderildi\n• Uygulama Üzerinden Odak Seansını Bitirme Butonu Eklendi\n• Bildirim Susturma Geliştirildi\n• İzin Kontrol Paneli ve Uyarılar Eklendi",
+  "apkUrl": "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/KZBS_ODAK_v1.1.0.apk",
   "isMandatory": false
 }

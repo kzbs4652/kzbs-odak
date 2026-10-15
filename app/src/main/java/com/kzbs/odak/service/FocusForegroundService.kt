@@ -3,6 +3,8 @@ package com.kzbs.odak.service
 import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
+import android.app.usage.UsageEvents
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -13,6 +15,7 @@ import com.kzbs.odak.KZBSApplication
 import com.kzbs.odak.R
 import com.kzbs.odak.data.FocusPreferences
 import com.kzbs.odak.ui.MainActivity
+import com.kzbs.odak.ui.OverlayLockActivity
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +24,7 @@ class FocusForegroundService : Service() {
     private lateinit var preferences: FocusPreferences
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval = 1000L
+    private var lastCheckedPkg: String? = null
 
     companion object {
         const val ACTION_START = "ACTION_START_FOCUS"
@@ -58,8 +62,57 @@ class FocusForegroundService : Service() {
                 stopSelf()
             } else {
                 updateNotification(remainingMillis)
+                // Secondary fallback protection: Check foreground app via UsageStats
+                checkForegroundBlockedApp()
                 handler.postDelayed(this, updateInterval)
             }
+        }
+    }
+
+    private fun checkForegroundBlockedApp() {
+        if (!preferences.isFocusActive) return
+        try {
+            val usageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as? UsageStatsManager ?: return
+            val now = System.currentTimeMillis()
+            val events = usageStatsManager.queryEvents(now - 3000, now)
+            val event = UsageEvents.Event()
+            var currentPkg: String? = null
+
+            while (events.hasNextEvent()) {
+                events.getNextEvent(event)
+                if (event.eventType == UsageEvents.Event.ACTIVITY_RESUMED) {
+                    currentPkg = event.packageName
+                }
+            }
+
+            if (currentPkg != null && currentPkg != packageName && currentPkg != "com.android.systemui") {
+                if (preferences.isAppBlocked(currentPkg) && currentPkg != lastCheckedPkg) {
+                    lastCheckedPkg = currentPkg
+                    preferences.incrementBlockedAttempts()
+
+                    // Send home
+                    val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+                        addCategory(Intent.CATEGORY_HOME)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    startActivity(homeIntent)
+
+                    // Show lock overlay
+                    handler.postDelayed({
+                        val lockIntent = Intent(applicationContext, OverlayLockActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                    Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            putExtra(OverlayLockActivity.EXTRA_PACKAGE_NAME, currentPkg)
+                        }
+                        startActivity(lockIntent)
+                    }, 100)
+                } else if (!preferences.isAppBlocked(currentPkg)) {
+                    lastCheckedPkg = null
+                }
+            }
+        } catch (e: Exception) {
+            // Usage stats might not be granted
         }
     }
 
@@ -100,7 +153,7 @@ class FocusForegroundService : Service() {
         val statusText = if (preferences.isBreakActive) {
             "☕ Mola Aktif • Odak Kalan: $timeStr"
         } else {
-            "Kalan Süre: $timeStr • Tavizsiz Mod Aktif"
+            "Kalan Süre: $timeStr • Odak Modu Aktif"
         }
 
         val notification = buildNotification(statusText)

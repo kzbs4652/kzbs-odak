@@ -116,8 +116,42 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Perm 0: Accessibility Service (Most Critical) -->
+            <LinearLayout
+                android:id="@+id/rowPermAccessibility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Erişilebilirlik (Uygulama Kilitleyici)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/statusPermAccessibility"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KONTROL EDİLİYOR"
+                    android:textColor="@color/accent_emerald"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
             <!-- Perm 1: Usage Stats -->
             <LinearLayout
+                android:id="@+id/rowPermUsage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

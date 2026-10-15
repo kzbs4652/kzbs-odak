@@ -1,20 +1,26 @@
 package com.kzbs.odak.ui
 
 import android.app.AppOpsManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.kzbs.odak.BuildConfig
 import com.kzbs.odak.R
 import com.kzbs.odak.data.FocusPreferences
 import com.kzbs.odak.databinding.FragmentSettingsBinding
+import com.kzbs.odak.service.FocusAccessibilityService
 import com.kzbs.odak.update.UpdateChecker
 
 class SettingsFragment : Fragment() {
@@ -38,6 +44,7 @@ class SettingsFragment : Fragment() {
         preferences = FocusPreferences(requireContext())
 
         setupVersionAndUpdates()
+        setupPermissionClickListeners()
     }
 
     override fun onResume() {
@@ -52,10 +59,8 @@ class SettingsFragment : Fragment() {
             binding.tvUpdateStatus.text = getString(R.string.checking_updates)
 
             UpdateChecker(requireActivity()).checkForUpdates(
-                showUpToDateToast = false,  // Don't use Toast — use UI callback instead
-                onComplete = { hasUpdate ->
-                    // onStatusMessage already handles the text update
-                },
+                showUpToDateToast = false,
+                onComplete = { _ -> },
                 onStatusMessage = { message ->
                     if (_binding != null) {
                         binding.tvUpdateStatus.text = message
@@ -65,8 +70,59 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun setupPermissionClickListeners() {
+        val context = requireContext()
+
+        // Perm 0: Accessibility
+        binding.rowPermAccessibility.setOnClickListener {
+            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(intent)
+            Toast.makeText(context, "\"Yüklü Uygulamalar\" > \"KZBS Odak Kilitleyici\" servisini AÇIK yapın!", Toast.LENGTH_LONG).show()
+        }
+
+        // Perm 1: Usage Stats
+        binding.rowPermUsage.setOnClickListener {
+            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            startActivity(intent)
+        }
+
+        // Perm 2: Overlay
+        binding.statusPermOverlay.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:${context.packageName}")
+                )
+                startActivity(intent)
+            }
+        }
+
+        // Perm 3: Notification Access
+        binding.statusPermNotification.setOnClickListener {
+            val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+            startActivity(intent)
+        }
+
+        // Perm 4: Battery Optimization
+        binding.statusPermBattery.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                    data = Uri.parse("package:${context.packageName}")
+                }
+                startActivity(intent)
+            }
+        }
+    }
+
     private fun checkPermissionsHealth() {
         val context = requireContext()
+
+        // 0. Accessibility Service
+        val hasAccessibility = isAccessibilityServiceEnabled(context)
+        binding.statusPermAccessibility.text = if (hasAccessibility) "TAMAM ✓" else "EKSİK (AÇIN) !"
+        binding.statusPermAccessibility.setTextColor(
+            resources.getColor(if (hasAccessibility) R.color.accent_emerald else R.color.accent_crimson)
+        )
 
         // 1. Usage stats
         val hasUsage = hasUsageAccess(context)
@@ -101,6 +157,26 @@ class SettingsFragment : Fragment() {
         binding.statusPermBattery.setTextColor(
             resources.getColor(if (hasBattery) R.color.accent_emerald else R.color.accent_crimson)
         )
+    }
+
+    private fun isAccessibilityServiceEnabled(context: Context): Boolean {
+        val expectedComponentName = ComponentName(context, FocusAccessibilityService::class.java)
+        val enabledServices = Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+
+        val colonSplitter = TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServices)
+
+        while (colonSplitter.hasNext()) {
+            val componentNameString = colonSplitter.next()
+            val enabledComponent = ComponentName.unflattenFromString(componentNameString)
+            if (enabledComponent != null && enabledComponent == expectedComponentName) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun hasUsageAccess(context: Context): Boolean {

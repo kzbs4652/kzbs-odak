@@ -1,6 +1,5 @@
 package com.kzbs.odak.service
 
-import android.app.Notification
 import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
@@ -24,26 +23,33 @@ class NotificationBlockerService : NotificationListenerService() {
         // Check if focus session is active and notifications from this app should be muted
         if (preferences.isNotificationBlocked(packageName)) {
             try {
-                // Cancel/discard incoming notification immediately
+                // Cancel by unique notification key
                 cancelNotification(sbn.key)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
 
-            // Samsung One UI: Also try to snooze the notification if cancel fails
+            try {
+                // Also cancel by tag and id for maximum compatibility across Android versions
+                @Suppress("DEPRECATION")
+                cancelNotification(sbn.packageName, sbn.tag, sbn.id)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            // Samsung One UI: Also snooze if cancel is delayed
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    snoozeNotification(sbn.key, 24 * 60 * 60 * 1000L) // Snooze for 24h as backup
+                    snoozeNotification(sbn.key, 24 * 60 * 60 * 1000L)
                 }
             } catch (e: Exception) {
-                // Snooze not supported or failed — that's ok, cancel should have worked
+                // Ignored
             }
         }
     }
 
     override fun onListenerConnected() {
         super.onListenerConnected()
-        // When the listener connects, clear any existing notifications from blocked apps
         clearExistingBlockedNotifications()
     }
 
@@ -55,6 +61,8 @@ class NotificationBlockerService : NotificationListenerService() {
                 if (preferences.isNotificationBlocked(packageName)) {
                     try {
                         cancelNotification(sbn.key)
+                        @Suppress("DEPRECATION")
+                        cancelNotification(sbn.packageName, sbn.tag, sbn.id)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

@@ -29,31 +29,31 @@ class FocusPreferences(context: Context) {
 
     var isFirstRunCompleted: Boolean
         get() = prefs.getBoolean(KEY_FIRST_RUN, false)
-        set(value) = prefs.edit().putBoolean(KEY_FIRST_RUN, value).apply()
+        set(value) { prefs.edit().putBoolean(KEY_FIRST_RUN, value).commit() }
 
     var isFocusActive: Boolean
         get() = prefs.getBoolean(KEY_FOCUS_ACTIVE, false)
-        set(value) = prefs.edit().putBoolean(KEY_FOCUS_ACTIVE, value).apply()
+        set(value) { prefs.edit().putBoolean(KEY_FOCUS_ACTIVE, value).commit() }
 
     var focusEndTime: Long
         get() = prefs.getLong(KEY_FOCUS_END_TIME, 0L)
-        set(value) = prefs.edit().putLong(KEY_FOCUS_END_TIME, value).apply()
+        set(value) { prefs.edit().putLong(KEY_FOCUS_END_TIME, value).commit() }
 
     var focusDurationMinutes: Int
         get() = prefs.getInt(KEY_FOCUS_DURATION_MINUTES, 30)
-        set(value) = prefs.edit().putInt(KEY_FOCUS_DURATION_MINUTES, value).apply()
+        set(value) { prefs.edit().putInt(KEY_FOCUS_DURATION_MINUTES, value).commit() }
 
     var customLockMessage: String
         get() = prefs.getString(KEY_CUSTOM_LOCK_MESSAGE, DEFAULT_MESSAGE) ?: DEFAULT_MESSAGE
-        set(value) = prefs.edit().putString(KEY_CUSTOM_LOCK_MESSAGE, value).apply()
+        set(value) { prefs.edit().putString(KEY_CUSTOM_LOCK_MESSAGE, value).commit() }
 
     var blockedApps: Set<String>
-        get() = prefs.getStringSet(KEY_BLOCKED_APPS, emptySet()) ?: emptySet()
-        set(value) = prefs.edit().putStringSet(KEY_BLOCKED_APPS, value).apply()
+        get() = HashSet(prefs.getStringSet(KEY_BLOCKED_APPS, emptySet()) ?: emptySet())
+        set(value) { prefs.edit().putStringSet(KEY_BLOCKED_APPS, HashSet(value)).commit() }
 
     var blockedNotifications: Set<String>
-        get() = prefs.getStringSet(KEY_BLOCKED_NOTIFICATIONS, emptySet()) ?: emptySet()
-        set(value) = prefs.edit().putStringSet(KEY_BLOCKED_NOTIFICATIONS, value).apply()
+        get() = HashSet(prefs.getStringSet(KEY_BLOCKED_NOTIFICATIONS, emptySet()) ?: emptySet())
+        set(value) { prefs.edit().putStringSet(KEY_BLOCKED_NOTIFICATIONS, HashSet(value)).commit() }
 
     var savedMinutes: Long
         get() = prefs.getLong(KEY_SAVED_MINUTES, 0L)
