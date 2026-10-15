@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_card_dark"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <!-- App Icon -->
+    <ImageView
+        android:id="@+id/imgAppIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="Uygulama İkonu"
+        android:src="@drawable/ic_kzbs_logo" />
+
+    <!-- App Details -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Uygulama Adı"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAppPackage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="com.example.app"
+            android:textColor="@color/text_muted"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <!-- Switch: Girişi Kilitle -->
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchLockApp"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        app:thumbTint="@color/accent_emerald"
+        app:trackTint="@color/bg_surface_elevated" />
+
+    <!-- Switch: Bildirimi Sustur -->
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchMuteNotification"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        app:thumbTint="@color/accent_cyan"
+        app:trackTint="@color/bg_surface_elevated" />
+
+</LinearLayout>

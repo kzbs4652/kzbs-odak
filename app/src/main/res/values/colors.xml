@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- KZBS ODAK Deep Dark Palette -->
+    <color name="bg_main">#0E1015</color>
+    <color name="bg_surface">#181B22</color>
+    <color name="bg_surface_elevated">#212631</color>
+    <color name="bg_card">#1A1E28</color>
+    <color name="bg_card_border">#2E3544</color>
+    
+    <!-- Accent / Focus Colors -->
+    <color name="accent_emerald">#10B981</color>
+    <color name="accent_emerald_glow">#34D399</color>
+    <color name="accent_emerald_dark">#059669</color>
+    <color name="accent_cyan">#06B6D4</color>
+    <color name="accent_amber">#F59E0B</color>
+    <color name="accent_crimson">#EF4444</color>
+
+    <!-- Typography Colors -->
+    <color name="text_primary">#F1F5F9</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="text_muted">#64748B</color>
+    
+    <!-- Components -->
+    <color name="switch_thumb_off">#475569</color>
+    <color name="switch_track_off">#1E293B</color>
+    <color name="divider">#1F2430</color>
+</resources>

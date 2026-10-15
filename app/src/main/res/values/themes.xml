@@ -1,0 +1,23 @@
+<resources>
+    <style name="Theme.KZBSODAK" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/accent_emerald</item>
+        <item name="colorPrimaryVariant">@color/accent_emerald_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accent_cyan</item>
+        <item name="colorSecondaryVariant">@color/accent_emerald_glow</item>
+        <item name="colorOnSecondary">@color/bg_main</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/bg_main</item>
+        <item name="android:navigationBarColor">@color/bg_main</item>
+        <item name="android:windowBackground">@color/bg_main</item>
+    </style>
+
+    <style name="Theme.KZBSODAK.LockOverlay" parent="Theme.KZBSODAK">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@color/bg_main</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>

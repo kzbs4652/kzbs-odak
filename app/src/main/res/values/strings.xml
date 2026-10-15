@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">KZBS ODAK</string>
+    <string name="slogan">Zihnini Odakla, Geleceğini Kur</string>
+    
+    <!-- Navigation -->
+    <string name="nav_focus">Odak</string>
+    <string name="nav_apps">Uygulamalar</string>
+    <string name="nav_settings">Ayarlar</string>
+    
+    <!-- Focus Screen -->
+    <string name="focus_title">ODAK MERKEZİ</string>
+    <string name="focus_duration">SÜRE SEÇİMİ</string>
+    <string name="btn_start_focus">ODAKLANMAYI BAŞLAT</string>
+    <string name="focus_active">ODAK MODU AKTİF</string>
+    <string name="time_remaining">Kalan Süre</string>
+    <string name="preset_25">25 dk</string>
+    <string name="preset_30">30 dk</string>
+    <string name="preset_45">45 dk</string>
+    <string name="preset_60">60 dk</string>
+    <string name="preset_90">90 dk</string>
+    <string name="custom_time">⏱️ Özel</string>
+    <string name="lock_message_title">KİLİT MOTİVASYON MESAJI</string>
+    <string name="default_lock_message">Şu an geleceğin için odaklanma zamanı! Masanın başına dön.</string>
+    
+    <!-- Break & End Session -->
+    <string name="btn_break">☕ 5 Dakika Mola Ver</string>
+    <string name="btn_end_session">🛑 Seansı Bitir</string>
+    <string name="break_active">MOLA AKTİF</string>
+    <string name="break_remaining">Mola Bitiyor: %s</string>
+    <string name="break_used">Mola hakkı kullanıldı (%d/2)</string>
+    <string name="no_break_left">Mola hakkın kalmadı!</string>
+    <string name="end_session_title">⚠️ Odak Seansı Sonlandırılsın mı?</string>
+    <string name="end_session_message">Hedefinden vazgeçmek istediğine emin misin?\nMasanın başında %s kaldı!</string>
+    <string name="end_session_cancel">Vazgeçme, Masaya Dön</string>
+    <string name="end_session_confirm">Evet, Bitir</string>
+    <string name="custom_time_title">Özel Süre Seç</string>
+    <string name="custom_time_hour">Saat</string>
+    <string name="custom_time_minute">Dakika</string>
+    
+    <!-- Apps Screen -->
+    <string name="apps_title">UYGULAMA YÖNETİMİ</string>
+    <string name="search_apps">Uygulama ara...</string>
+    <string name="col_lock">Kilitle</string>
+    <string name="col_notifications">Sustur</string>
+    <string name="filter_all">Tümü</string>
+    <string name="filter_social">Sosyal Medya</string>
+    <string name="filter_games">Oyunlar</string>
+    
+    <!-- Lock Screen -->
+    <string name="lock_screen_title">TAVİZSİZ ODAK MODU</string>
+    <string name="lock_screen_desc">Bu uygulama KZBS ODAK tarafından kısıtlandı.</string>
+    <string name="btn_return_home">MASANIN BAŞINA DÖN</string>
+    
+    <!-- Settings & Updates -->
+    <string name="settings_title">AYARLAR &amp; GÜNCELLEME</string>
+    <string name="version_label">Yazılım Sürümü</string>
+    <string name="btn_check_update">Güncellemeleri Denetle</string>
+    <string name="checking_updates">Güncellemeler kontrol ediliyor...</string>
+    <string name="version_up_to_date">Yazılım sürümünüz güncel (v%s) ✓</string>
+    <string name="update_available">Yeni Yazılım Sürümü Mevcut!</string>
+    <string name="btn_download_update">Şimdi İndir</string>
+    <string name="btn_later">Daha Sonra</string>
+    <string name="permissions_title">SİSTEM İZİNLERİ</string>
+    <string name="perm_usage">Kullanım Erişimi</string>
+    <string name="perm_overlay">Üstte Gösterme İzni</string>
+    <string name="perm_notification">Bildirim Erişimi</string>
+    <string name="perm_battery">Arka Plan Pil Koruması</string>
+    <string name="perm_accessibility">Erişilebilirlik Servisi</string>
+    <string name="perm_install">APK Güncelleme İzni</string>
+    <string name="btn_grant">İzin Ver</string>
+    <string name="perm_granted">TAMAM ✓</string>
+    <string name="accessibility_service_label">KZBS Odak Kilitleyici</string>
+    <string name="accessibility_service_desc">Yasaklı uygulamalara girişi anlık tespit edip kilit ekranını göstermek için kullanılır.</string>
+</resources>
