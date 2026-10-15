@@ -31,8 +31,10 @@ import java.net.URL
 class UpdateChecker(private val context: Context) {
 
     companion object {
-        // GitHub raw URL — must match your actual repo path
+        // Direct GitHub API raw content — zero CDN cache delay
         const val DEFAULT_UPDATE_URL =
+            "https://api.github.com/repos/kzbs4652/kzbs-odak/contents/version.json"
+        const val FALLBACK_UPDATE_URL =
             "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/version.json"
     }
 
@@ -49,14 +51,31 @@ class UpdateChecker(private val context: Context) {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val url = URL(DEFAULT_UPDATE_URL)
-                val connection = url.openConnection() as HttpURLConnection
-                connection.connectTimeout = 8000  // Increased timeout for slow networks
+                var url = URL(DEFAULT_UPDATE_URL)
+                var connection = url.openConnection() as HttpURLConnection
+                connection.connectTimeout = 8000
                 connection.readTimeout = 8000
                 connection.requestMethod = "GET"
-                connection.instanceFollowRedirects = true  // Follow redirects
+                connection.setRequestProperty("Accept", "application/vnd.github.v3.raw")
+                connection.setRequestProperty("User-Agent", "KZBS-ODAK-App")
+                connection.setRequestProperty("Cache-Control", "no-cache")
+                connection.useCaches = false
+                connection.instanceFollowRedirects = true
 
-                val responseCode = connection.responseCode
+                var responseCode = connection.responseCode
+
+                // If API fails or is rate limited, try fallback raw URL
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    url = URL(FALLBACK_UPDATE_URL)
+                    connection = url.openConnection() as HttpURLConnection
+                    connection.connectTimeout = 8000
+                    connection.readTimeout = 8000
+                    connection.requestMethod = "GET"
+                    connection.setRequestProperty("Cache-Control", "no-cache")
+                    connection.useCaches = false
+                    connection.instanceFollowRedirects = true
+                    responseCode = connection.responseCode
+                }
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     val json = connection.inputStream.bufferedReader().use { it.readText() }
