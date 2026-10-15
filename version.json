@@ -1,7 +1,7 @@
 {
-  "latestVersionCode": 2,
-  "latestVersionName": "1.1.0",
-  "changelog": "• Samsung One UI Kilit Ekranı ve Hızlı Atma Düzeltildi\n• Özel Süre Seçimi Hatası Giderildi\n• Uygulama Üzerinden Odak Seansını Bitirme Butonu Eklendi\n• Bildirim Susturma Geliştirildi\n• İzin Kontrol Paneli ve Uyarılar Eklendi",
-  "apkUrl": "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/KZBS_ODAK_v1.1.0.apk",
+  "latestVersionCode": 3,
+  "latestVersionName": "1.2.0",
+  "changelog": "• Özel Sayaçta 1'er Dakikalık Hassas Süre Seçimi (Her dakikayı serbestçe ayarlayabilme)\n• Uygulama İçi Doğrudan İndirme ve Otomatik Paket Yükleyici\n• Samsung One UI Kilit ve Hızlı Fırlatma Optimizasyonu\n• Odak Modunu Uygulama Üzerinden Sonlandırma Butonu\n• Çift Yönlü Bildirim Susturma Desteği",
+  "apkUrl": "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/KZBS_ODAK_v1.2.0.apk",
   "isMandatory": false
 }

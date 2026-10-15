@@ -204,7 +204,7 @@ class FocusFragment : Fragment() {
         hoursLayout.addView(hoursLabel)
         hoursLayout.addView(hourPicker)
 
-        // Minutes picker (12 increments of 5 minutes: 0 to 55)
+        // Minutes picker (0 to 59 minutes, 1-minute increments)
         val minutesLayout = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
             gravity = android.view.Gravity.CENTER
@@ -218,9 +218,9 @@ class FocusFragment : Fragment() {
         }
         val minutePicker = NumberPicker(requireContext()).apply {
             minValue = 0
-            maxValue = 11
-            displayedValues = Array(12) { "${it * 5} dk" }
-            value = ((selectedDuration % 60) / 5).coerceIn(0, 11)
+            maxValue = 59
+            displayedValues = Array(60) { "$it dk" }
+            value = (selectedDuration % 60).coerceIn(0, 59)
             wrapSelectorWheel = true
         }
         minutesLayout.addView(minutesLabel)
@@ -233,9 +233,9 @@ class FocusFragment : Fragment() {
         val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_KZBSODAK)
             .setView(layout)
             .setPositiveButton("Ayarla") { _, _ ->
-                val totalMinutes = (hourPicker.value * 60) + (minutePicker.value * 5)
-                if (totalMinutes < 5) {
-                    Toast.makeText(requireContext(), "Minimum süre 5 dakikadır!", Toast.LENGTH_SHORT).show()
+                val totalMinutes = (hourPicker.value * 60) + minutePicker.value
+                if (totalMinutes < 1) {
+                    Toast.makeText(requireContext(), "Minimum süre 1 dakikadır!", Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
                 selectDuration(totalMinutes, presetChips, isCustom = true)
