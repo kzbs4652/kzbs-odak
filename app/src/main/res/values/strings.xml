@@ -6,6 +6,18 @@
     <string name="nav_focus">Odak</string>
     <string name="nav_apps">Uygulamalar</string>
     <string name="nav_settings">Ayarlar</string>
+    <string name="nav_stopwatch">Kronometre</string>
+    <string name="stopwatch_title">KRONOMETRE</string>
+    <string name="stopwatch_start_hint">Başlat’a dokununca 3 saniyelik geri sayım başlar. Çalışırken durdurma seçeneklerini açmak için ekrana art arda üç kez dokunun.</string>
+    <string name="stopwatch_triple_tap_hint">Durdurma seçeneklerini açmak için ekrana art arda üç kez dokunun.</string>
+    <string name="stopwatch_start">Başlat</string>
+    <string name="stopwatch_paused_title">Kronometre durduruldu</string>
+    <string name="stopwatch_cancel_message">Geçen süre: %1$s\n\nİptal etmek istiyor musunuz? Hayır seçerseniz süre kaldığı yerden devam eder.</string>
+    <string name="stopwatch_continue">Hayır, devam et</string>
+    <string name="stopwatch_cancel">Evet, iptal et</string>
+    <string name="stopwatch_summary_title">Kronometre iptal edildi</string>
+    <string name="stopwatch_summary_elapsed">Geçen süre: %1$s</string>
+    <string name="stopwatch_return_home">Ana ekrana dön</string>
     
     <!-- Focus Screen -->
     <string name="focus_title">ODAK MERKEZİ</string>

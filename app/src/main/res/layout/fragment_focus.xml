@@ -53,8 +53,8 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
-                android:text="🌱 Hazır"
-                android:textColor="@color/accent_emerald"
+                android:text="Hazır"
+                android:textColor="@color/accent_blue"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_button_emerald"
+                android:background="@drawable/bg_button_blue"
                 android:text="İzni Aç (Ayarlara Git)"
                 android:textColor="@color/text_primary"
                 android:textSize="12sp"
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="45 Dakika Derin Odak"
-                android:textColor="@color/accent_emerald"
+                android:textColor="@color/accent_blue"
                 android:textSize="13sp" />
 
             <!-- Active Session Progress Bar -->
@@ -148,7 +148,7 @@
                 android:layout_marginTop="16dp"
                 android:max="100"
                 android:progress="0"
-                android:progressTint="@color/accent_emerald"
+                android:progressTint="@color/accent_blue"
                 android:visibility="gone" />
 
             <!-- Quick Duration Chips -->
@@ -169,7 +169,7 @@
                     android:background="@drawable/bg_chip_selected"
                     android:gravity="center"
                     android:text="@string/preset_30"
-                    android:textColor="@color/accent_emerald"
+                    android:textColor="@color/accent_blue"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -271,7 +271,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textColor="@color/accent_emerald"
+                    android:textColor="@color/accent_blue"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -301,7 +301,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textColor="@color/accent_cyan"
+                    android:textColor="@color/accent_blue_light"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -320,7 +320,7 @@
             android:id="@+id/btnStartFocus"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:background="@drawable/bg_button_emerald"
+            android:background="@drawable/bg_button_blue"
             android:letterSpacing="0.08"
             android:text="@string/btn_start_focus"
             android:textColor="@color/text_primary"

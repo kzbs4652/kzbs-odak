@@ -40,7 +40,7 @@
             android:layout_marginTop="2dp"
             android:letterSpacing="0.05"
             android:text="@string/lock_screen_title"
-            android:textColor="@color/accent_emerald"
+            android:textColor="@color/accent_blue"
             android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -107,7 +107,7 @@
             android:layout_marginTop="12dp"
             android:max="100"
             android:progress="65"
-            android:progressTint="@color/accent_emerald" />
+            android:progressTint="@color/accent_blue" />
 
         <TextView
             android:id="@+id/tvLockProgressPercent"
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="%65 Tamamlandı"
-            android:textColor="@color/accent_emerald"
+            android:textColor="@color/accent_blue"
             android:textSize="12sp" />
 
         <!-- Divider -->
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:letterSpacing="0.08"
             android:text="💬 SENİN MOTİVASYONUN"
-            android:textColor="@color/accent_emerald"
+            android:textColor="@color/accent_blue"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -155,7 +155,7 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/bg_button_emerald"
+        android:background="@drawable/bg_button_blue"
         android:letterSpacing="0.1"
         android:text="@string/btn_return_home"
         android:textColor="@color/text_primary"

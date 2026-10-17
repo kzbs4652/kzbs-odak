@@ -52,7 +52,7 @@
         android:id="@+id/switchLockApp"
         android:layout_width="54dp"
         android:layout_height="wrap_content"
-        app:thumbTint="@color/accent_emerald"
+        app:thumbTint="@color/accent_blue"
         app:trackTint="@color/bg_surface_elevated" />
 
     <!-- Switch: Bildirimi Sustur -->
@@ -60,7 +60,7 @@
         android:id="@+id/switchMuteNotification"
         android:layout_width="54dp"
         android:layout_height="wrap_content"
-        app:thumbTint="@color/accent_cyan"
+        app:thumbTint="@color/accent_blue_light"
         app:trackTint="@color/bg_surface_elevated" />
 
 </LinearLayout>

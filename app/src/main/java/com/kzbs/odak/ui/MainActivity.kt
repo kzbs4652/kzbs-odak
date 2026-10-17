@@ -1,7 +1,9 @@
 package com.kzbs.odak.ui
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.kzbs.odak.R
 import com.kzbs.odak.databinding.ActivityMainBinding
@@ -26,21 +28,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        // Default to focus tab
-        loadFragment(focusFragment)
+        binding.toolbarMain.setNavigationOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+        loadFragment(focusFragment)
+        binding.navigationView.setCheckedItem(R.id.navigation_focus)
+
+        binding.navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_focus -> {
                     loadFragment(focusFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.navigation_apps -> {
                     loadFragment(appsFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.navigation_settings -> {
                     loadFragment(settingsFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.navigation_stopwatch -> {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    startActivity(Intent(this, StopwatchActivity::class.java))
                     true
                 }
                 else -> false
@@ -52,5 +66,13 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

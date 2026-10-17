@@ -121,14 +121,14 @@ class SettingsFragment : Fragment() {
         val hasAccessibility = isAccessibilityServiceEnabled(context)
         binding.statusPermAccessibility.text = if (hasAccessibility) "TAMAM ✓" else "EKSİK (AÇIN) !"
         binding.statusPermAccessibility.setTextColor(
-            resources.getColor(if (hasAccessibility) R.color.accent_emerald else R.color.accent_crimson)
+            resources.getColor(if (hasAccessibility) R.color.accent_blue else R.color.accent_crimson)
         )
 
         // 1. Usage stats
         val hasUsage = hasUsageAccess(context)
         binding.statusPermUsage.text = if (hasUsage) "TAMAM ✓" else "EKSİK !"
         binding.statusPermUsage.setTextColor(
-            resources.getColor(if (hasUsage) R.color.accent_emerald else R.color.accent_crimson)
+            resources.getColor(if (hasUsage) R.color.accent_blue else R.color.accent_crimson)
         )
 
         // 2. Overlay
@@ -137,7 +137,7 @@ class SettingsFragment : Fragment() {
         } else true
         binding.statusPermOverlay.text = if (hasOverlay) "TAMAM ✓" else "EKSİK !"
         binding.statusPermOverlay.setTextColor(
-            resources.getColor(if (hasOverlay) R.color.accent_emerald else R.color.accent_crimson)
+            resources.getColor(if (hasOverlay) R.color.accent_blue else R.color.accent_crimson)
         )
 
         // 3. Notification Access
@@ -145,7 +145,7 @@ class SettingsFragment : Fragment() {
         val hasNotif = packages.contains(context.packageName)
         binding.statusPermNotification.text = if (hasNotif) "TAMAM ✓" else "EKSİK !"
         binding.statusPermNotification.setTextColor(
-            resources.getColor(if (hasNotif) R.color.accent_emerald else R.color.accent_crimson)
+            resources.getColor(if (hasNotif) R.color.accent_blue else R.color.accent_crimson)
         )
 
         // 4. Battery Optimization
@@ -155,7 +155,7 @@ class SettingsFragment : Fragment() {
         } else true
         binding.statusPermBattery.text = if (hasBattery) "TAMAM ✓" else "EKSİK !"
         binding.statusPermBattery.setTextColor(
-            resources.getColor(if (hasBattery) R.color.accent_emerald else R.color.accent_crimson)
+            resources.getColor(if (hasBattery) R.color.accent_blue else R.color.accent_crimson)
         )
     }
 

@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="KİLİTLE"
-            android:textColor="@color/accent_emerald"
+            android:textColor="@color/accent_blue"
             android:textSize="11sp"
             android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="SUSTUR"
-            android:textColor="@color/accent_cyan"
+            android:textColor="@color/accent_blue_light"
             android:textSize="11sp"
             android:textStyle="bold" />
     </LinearLayout>

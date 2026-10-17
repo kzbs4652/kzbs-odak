@@ -1,7 +1,7 @@
 {
-  "latestVersionCode": 4,
-  "latestVersionName": "1.2.1",
-  "changelog": "• Seçilen uygulamalar artık üstte ayrı ve alfabetik listeleniyor\n• Odak ekranı sadeleştirildi; etkin seans zamanlayıcı ve durum göstergesiyle belirtiliyor\n• Arayüz metinleri sadeleştirildi",
-  "apkUrl": "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/KZBS_ODAK_v1.2.1.apk",
+  "latestVersionCode": 5,
+  "latestVersionName": "1.2.2",
+  "changelog": "• Siyah yatay kronometre ekranı, 3 saniyelik geri sayım ve üç dokunuşla duraklatma/iptal akışı\n• Yan menü ile Odak, Uygulamalar, Ayarlar ve Kronometre erişimi\n• Arayüz vurguları sakin arduvaz mavisine güncellendi",
+  "apkUrl": "https://raw.githubusercontent.com/kzbs4652/kzbs-odak/main/KZBS_ODAK_v1.2.2.apk",
   "isMandatory": false
 }

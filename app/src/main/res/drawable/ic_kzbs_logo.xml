@@ -6,7 +6,7 @@
     <!-- Outer Shield Frame -->
     <path
         android:fillColor="#181B22"
-        android:strokeColor="#10B981"
+        android:strokeColor="#8FAFC8"
         android:strokeWidth="3.5"
         android:strokeLineJoin="round"
         android:pathData="M60,8 L104,24 L104,64 C104,90 60,112 60,112 C60,112 16,90 16,64 L16,24 Z" />
@@ -19,12 +19,12 @@
     <!-- Focus Aperture / Target Rings -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#34D399"
+        android:strokeColor="#A2BCD0"
         android:strokeWidth="2"
         android:pathData="M60,36 A24,24 0 1,0 60.01,36" />
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#06B6D4"
+        android:strokeColor="#A2BCD0"
         android:strokeWidth="1.5"
         android:pathData="M60,42 A18,18 0 1,0 60.01,42" />
 
@@ -33,12 +33,12 @@
         android:fillColor="#F1F5F9"
         android:pathData="M52,46 L56,46 L56,74 L52,74 Z" />
     <path
-        android:fillColor="#10B981"
+        android:fillColor="#8FAFC8"
         android:pathData="M56,60 L68,46 L73,46 L61,60 L74,74 L69,74 Z" />
 
     <!-- 4 Aperture Crosshairs -->
     <path
-        android:strokeColor="#10B981"
+        android:strokeColor="#8FAFC8"
         android:strokeWidth="2.5"
         android:strokeLineCap="round"
         android:pathData="M60,30 L60,36 M60,84 L60,90 M30,60 L36,60 M84,60 L90,60" />

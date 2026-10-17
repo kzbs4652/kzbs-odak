@@ -1,12 +1,12 @@
 <resources>
     <style name="Theme.KZBSODAK" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/accent_emerald</item>
-        <item name="colorPrimaryVariant">@color/accent_emerald_dark</item>
+        <item name="colorPrimary">@color/accent_blue_dark</item>
+        <item name="colorPrimaryVariant">@color/accent_blue_dark</item>
         <item name="colorOnPrimary">@color/text_primary</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/accent_cyan</item>
-        <item name="colorSecondaryVariant">@color/accent_emerald_glow</item>
+        <item name="colorSecondary">@color/accent_blue</item>
+        <item name="colorSecondaryVariant">@color/accent_blue_light</item>
         <item name="colorOnSecondary">@color/bg_main</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/bg_main</item>

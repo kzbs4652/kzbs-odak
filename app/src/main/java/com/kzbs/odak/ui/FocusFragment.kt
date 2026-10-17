@@ -254,7 +254,7 @@ class FocusFragment : Fragment() {
         presetChips.forEach { (view, dur) ->
             if (!isCustom && dur == duration) {
                 view.setBackgroundResource(R.drawable.bg_chip_selected)
-                view.setTextColor(resources.getColor(R.color.accent_emerald))
+                view.setTextColor(resources.getColor(R.color.accent_blue))
             } else {
                 view.setBackgroundResource(R.drawable.bg_chip_unselected)
                 view.setTextColor(resources.getColor(R.color.text_primary))
@@ -263,7 +263,7 @@ class FocusFragment : Fragment() {
 
         if (isCustom) {
             binding.chipCustom.setBackgroundResource(R.drawable.bg_chip_selected)
-            binding.chipCustom.setTextColor(resources.getColor(R.color.accent_emerald))
+            binding.chipCustom.setTextColor(resources.getColor(R.color.accent_blue))
             val h = duration / 60
             val m = duration % 60
             binding.chipCustom.text = if (h > 0) "⏱️ ${h}s ${m}d" else "⏱️ ${m}dk"
@@ -398,7 +398,7 @@ class FocusFragment : Fragment() {
         binding.tvTimerDurationDesc.text = "$selectedDuration Dakika Derin Odak"
         binding.tvTimerDurationDesc.visibility = View.VISIBLE
         binding.tvFocusStatsBadge.text = "🌱 Hazır"
-        binding.tvFocusStatsBadge.setTextColor(resources.getColor(R.color.accent_emerald))
+        binding.tvFocusStatsBadge.setTextColor(resources.getColor(R.color.accent_blue))
 
         binding.pbFocusProgress.visibility = View.GONE
         binding.btnStartFocus.visibility = View.VISIBLE

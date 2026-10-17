@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="Sürüm: v1.1.0"
-        android:textColor="@color/accent_emerald"
+        android:textColor="@color/accent_blue"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
             android:layout_height="6dp"
             android:max="100"
             android:progress="0"
-            android:progressTint="@color/accent_emerald" />
+            android:progressTint="@color/accent_blue" />
 
         <TextView
             android:id="@+id/tvDownloadPercent"
@@ -87,7 +87,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="4dp"
             android:text="%0 İndiriliyor..."
-            android:textColor="@color/accent_emerald"
+            android:textColor="@color/accent_blue"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -115,7 +115,7 @@
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1.2"
-            android:background="@drawable/bg_button_emerald"
+            android:background="@drawable/bg_button_blue"
             android:text="@string/btn_download_update"
             android:textColor="@color/text_primary"
             android:textSize="13sp"
