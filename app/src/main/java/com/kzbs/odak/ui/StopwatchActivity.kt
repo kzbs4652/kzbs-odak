@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -69,6 +71,11 @@ class StopwatchActivity : AppCompatActivity() {
         if (immersiveMode) hideSystemBars(window)
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (immersiveMode) hideSystemBars(window)
+    }
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus && immersiveMode) hideSystemBars(window)
@@ -83,6 +90,7 @@ class StopwatchActivity : AppCompatActivity() {
     }
 
     private fun beginCountdown() {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         binding.layoutStopwatchSetup.visibility = View.GONE
         binding.layoutStopwatchSummary.visibility = View.GONE
         binding.layoutStopwatchScreen.visibility = View.VISIBLE
@@ -169,7 +177,8 @@ class StopwatchActivity : AppCompatActivity() {
         val hours = totalSeconds / 3600L
         val minutes = (totalSeconds / 60L) % 60L
         val seconds = totalSeconds % 60L
-        return String.format(Locale.ROOT, "%02d:%02d:%02d", hours, minutes, seconds)
+        val centiseconds = (durationMillis % 1000L) / 10L
+        return String.format(Locale.ROOT, "%02d:%02d:%02d.%02d", hours, minutes, seconds, centiseconds)
     }
 
     private fun hideSystemBars(targetWindow: Window) {
@@ -189,7 +198,7 @@ class StopwatchActivity : AppCompatActivity() {
     private companion object {
         const val COUNTDOWN_START = 3
         const val COUNTDOWN_INTERVAL_MS = 1000L
-        const val TICK_INTERVAL_MS = 200L
+        const val TICK_INTERVAL_MS = 10L
         const val REQUIRED_TAPS = 3
         const val TAP_GAP_LIMIT_MS = 900L
     }

@@ -7,6 +7,13 @@
     <string name="nav_apps">Uygulamalar</string>
     <string name="nav_settings">Ayarlar</string>
     <string name="nav_stopwatch">Kronometre</string>
+    <string name="selected_apps_title">Seçilen Uygulamalar</string>
+    <string name="all_apps_title">Tüm Uygulamalar</string>
+    <string name="app_action_lock">Kilitle</string>
+    <string name="app_action_mute">Bildirimleri sustur</string>
+    <string name="selected_app_locked">Kilitli</string>
+    <string name="selected_app_muted">Sessiz</string>
+    <string name="app_icon_description">Uygulama simgesi</string>
     <string name="stopwatch_title">KRONOMETRE</string>
     <string name="stopwatch_start_hint">Başlat’a dokununca 3 saniyelik geri sayım başlar. Çalışırken durdurma seçeneklerini açmak için ekrana art arda üç kez dokunun.</string>
     <string name="stopwatch_triple_tap_hint">Durdurma seçeneklerini açmak için ekrana art arda üç kez dokunun.</string>
@@ -23,7 +30,6 @@
     <string name="focus_title">ODAK MERKEZİ</string>
     <string name="focus_duration">SÜRE SEÇİMİ</string>
     <string name="btn_start_focus">ODAKLANMAYI BAŞLAT</string>
-    <string name="focus_active">ODAK MODU AKTİF</string>
     <string name="time_remaining">Kalan Süre</string>
     <string name="preset_25">25 dk</string>
     <string name="preset_30">30 dk</string>

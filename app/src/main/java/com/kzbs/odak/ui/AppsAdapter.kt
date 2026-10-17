@@ -1,61 +1,33 @@
 package com.kzbs.odak.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kzbs.odak.R
 import com.kzbs.odak.data.AppInfo
 import com.kzbs.odak.databinding.ItemAppLockBinding
 
 class AppsAdapter(
     private val onLockToggled: (AppInfo, Boolean) -> Unit,
     private val onMuteToggled: (AppInfo, Boolean) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<AppsAdapter.AppViewHolder>() {
 
-    private data class Row(val sectionTitle: String? = null, val app: AppInfo? = null)
-    private var rows: List<Row> = emptyList()
+    private var apps: List<AppInfo> = emptyList()
 
-    fun updateData(selectedApps: List<AppInfo>, otherApps: List<AppInfo>) {
-        rows = buildList {
-            if (selectedApps.isNotEmpty()) {
-                add(Row(sectionTitle = "Seçilen Uygulamalar"))
-                selectedApps.forEach { add(Row(app = it)) }
-            }
-            add(Row(sectionTitle = "Uygulamalar"))
-            otherApps.forEach { add(Row(app = it)) }
-        }
+    fun updateData(apps: List<AppInfo>) {
+        this.apps = apps
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int =
-        if (rows[position].sectionTitle != null) VIEW_TYPE_SECTION else VIEW_TYPE_APP
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return if (viewType == VIEW_TYPE_SECTION) {
-            SectionViewHolder(inflater.inflate(R.layout.item_apps_section, parent, false))
-        } else {
-            AppViewHolder(ItemAppLockBinding.inflate(inflater, parent, false))
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {
+        val binding = ItemAppLockBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return AppViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val row = rows[position]
-        when (holder) {
-            is SectionViewHolder -> holder.bind(row.sectionTitle.orEmpty())
-            is AppViewHolder -> row.app?.let(holder::bind)
-        }
+    override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
+        holder.bind(apps[position])
     }
 
-    override fun getItemCount(): Int = rows.size
-
-    private class SectionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(title: String) {
-            (itemView as TextView).text = title
-        }
-    }
+    override fun getItemCount(): Int = apps.size
 
     inner class AppViewHolder(private val binding: ItemAppLockBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -63,28 +35,37 @@ class AppsAdapter(
         fun bind(app: AppInfo) {
             binding.tvAppName.text = app.appName
             binding.tvAppPackage.text = app.packageName
-            app.icon?.let(binding.imgAppIcon::setImageDrawable)
+            binding.imgAppIcon.setImageDrawable(app.icon)
 
-            binding.switchLockApp.setOnCheckedChangeListener(null)
-            binding.switchMuteNotification.setOnCheckedChangeListener(null)
+            binding.chipLockApp.setOnCheckedChangeListener(null)
+            binding.chipMuteNotifications.setOnCheckedChangeListener(null)
+            binding.chipLockApp.isChecked = app.isLocked
+            binding.chipMuteNotifications.isChecked = app.isNotificationMuted
 
-            binding.switchLockApp.isChecked = app.isLocked
-            binding.switchMuteNotification.isChecked = app.isNotificationMuted
-
-            binding.switchLockApp.setOnCheckedChangeListener { _, isChecked ->
+            binding.chipLockApp.setOnCheckedChangeListener { chip, isChecked ->
                 app.isLocked = isChecked
+                animateSelection(chip)
                 onLockToggled(app, isChecked)
             }
-
-            binding.switchMuteNotification.setOnCheckedChangeListener { _, isChecked ->
+            binding.chipMuteNotifications.setOnCheckedChangeListener { chip, isChecked ->
                 app.isNotificationMuted = isChecked
+                animateSelection(chip)
                 onMuteToggled(app, isChecked)
             }
         }
-    }
 
-    private companion object {
-        const val VIEW_TYPE_SECTION = 0
-        const val VIEW_TYPE_APP = 1
+        private fun animateSelection(view: android.view.View) {
+            view.animate().cancel()
+            view.scaleX = 1f
+            view.scaleY = 1f
+            view.animate()
+                .scaleX(0.96f)
+                .scaleY(0.96f)
+                .setDuration(75L)
+                .withEndAction {
+                    view.animate().scaleX(1f).scaleY(1f).setDuration(100L).start()
+                }
+                .start()
+        }
     }
 }

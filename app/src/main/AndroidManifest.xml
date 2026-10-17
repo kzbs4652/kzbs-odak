@@ -58,7 +58,8 @@
         <activity
             android:name=".ui.StopwatchActivity"
             android:exported="false"
-            android:screenOrientation="landscape" />
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <!-- The Unyielding Lock Screen (Shown when blocked app is opened) -->
         <activity

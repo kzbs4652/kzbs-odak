@@ -1,16 +1,20 @@
 package com.kzbs.odak.ui
 
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
+import com.kzbs.odak.R
 import com.kzbs.odak.data.AppInfo
 import com.kzbs.odak.data.FocusPreferences
 import com.kzbs.odak.databinding.FragmentAppsBinding
@@ -57,7 +61,7 @@ class AppsFragment : Fragment() {
                     current.remove(app.packageName)
                 }
                 preferences.blockedApps = current
-                filterApps(binding.etSearchApp.text?.toString().orEmpty())
+                renderSelectedApps()
             },
             onMuteToggled = { app, isMuted ->
                 val current = preferences.blockedNotifications.toMutableSet()
@@ -67,7 +71,7 @@ class AppsFragment : Fragment() {
                     current.remove(app.packageName)
                 }
                 preferences.blockedNotifications = current
-                filterApps(binding.etSearchApp.text?.toString().orEmpty())
+                renderSelectedApps()
             }
         )
 
@@ -95,10 +99,80 @@ class AppsFragment : Fragment() {
                         it.packageName.lowercase(Locale.getDefault()).contains(trimmed)
             }
         }
-        val selectedApps = filtered.filter { it.isLocked || it.isNotificationMuted }
-        val otherApps = filtered.filterNot { it.isLocked || it.isNotificationMuted }
-        adapter.updateData(selectedApps, otherApps)
+        adapter.updateData(filtered)
+        renderSelectedApps()
     }
+
+    private fun renderSelectedApps() {
+        val selected = allApps.filter { it.isLocked || it.isNotificationMuted }
+        val panel = binding.layoutSelectedApps
+        val wasVisible = panel.visibility == View.VISIBLE
+
+        if (selected.isEmpty()) {
+            if (wasVisible) {
+                panel.animate().cancel()
+                panel.animate()
+                    .alpha(0f)
+                    .translationY(-dp(6).toFloat())
+                    .setDuration(140L)
+                    .withEndAction {
+                        panel.visibility = View.GONE
+                        panel.alpha = 1f
+                        panel.translationY = 0f
+                    }
+                    .start()
+            }
+            return
+        }
+
+        val chips = binding.chipSelectedApps
+        chips.removeAllViews()
+        selected.forEach { app ->
+            val statuses = buildList {
+                if (app.isLocked) add(getString(R.string.selected_app_locked))
+                if (app.isNotificationMuted) add(getString(R.string.selected_app_muted))
+            }
+            val summary = "${app.appName} · ${statuses.joinToString(" · ")}"
+            val chip = Chip(requireContext()).apply {
+                text = summary
+                contentDescription = "$summary, ${app.packageName}"
+                isCheckable = false
+                isClickable = false
+                textSize = 12f
+                setTextColor(ContextCompat.getColor(context, R.color.text_primary))
+                chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(context, R.color.bg_surface_elevated)
+                )
+                chipStrokeColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(context, R.color.bg_card_border)
+                )
+                chipStrokeWidth = dp(1).toFloat()
+                chipIcon = app.icon
+                isChipIconVisible = app.icon != null
+                chipIconTint = null
+                alpha = 0f
+            }
+            chips.addView(chip, LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            ))
+            chip.animate().alpha(1f).setDuration(160L).start()
+        }
+
+        if (!wasVisible) {
+            panel.visibility = View.VISIBLE
+            panel.alpha = 0f
+            panel.translationY = -dp(6).toFloat()
+            panel.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(180L)
+                .start()
+        }
+    }
+
+    private fun dp(value: Int): Int =
+        (value * resources.displayMetrics.density).toInt()
 
     private fun loadInstalledApps() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
@@ -132,7 +206,7 @@ class AppsFragment : Fragment() {
                 )
             }
 
-            // Keep both sections in Turkish alphabetical order.
+            // Keep the single app list in Turkish alphabetical order.
             val appNameCollator = Collator.getInstance(Locale("tr", "TR"))
             tempList.sortWith { first, second -> appNameCollator.compare(first.appName, second.appName) }
 

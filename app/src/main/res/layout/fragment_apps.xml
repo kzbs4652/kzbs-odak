@@ -54,50 +54,56 @@
             android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- Table Header Labels -->
     <LinearLayout
+        android:id="@+id/layoutSelectedApps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
+        android:layout_marginTop="14dp"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="UYGULAMA"
-            android:textColor="@color/text_muted"
-            android:textSize="11sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="KİLİTLE"
+            android:text="@string/selected_apps_title"
             android:textColor="@color/accent_blue"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="60dp"
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="SUSTUR"
-            android:textColor="@color/accent_blue_light"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="6dp"
+            android:clipToPadding="false"
+            android:fillViewport="false"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipSelectedApps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="6dp"
+                app:singleLine="true" />
+        </HorizontalScrollView>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAllAppsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/all_apps_title"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
     <!-- Apps List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAppsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingBottom="16dp" />
 
