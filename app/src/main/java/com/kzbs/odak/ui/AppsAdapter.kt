@@ -1,36 +1,61 @@
 package com.kzbs.odak.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.kzbs.odak.R
 import com.kzbs.odak.data.AppInfo
 import com.kzbs.odak.databinding.ItemAppLockBinding
 
 class AppsAdapter(
-    private var appsList: List<AppInfo>,
     private val onLockToggled: (AppInfo, Boolean) -> Unit,
     private val onMuteToggled: (AppInfo, Boolean) -> Unit
-) : RecyclerView.Adapter<AppsAdapter.AppViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    fun updateData(newApps: List<AppInfo>) {
-        appsList = newApps
+    private data class Row(val sectionTitle: String? = null, val app: AppInfo? = null)
+    private var rows: List<Row> = emptyList()
+
+    fun updateData(selectedApps: List<AppInfo>, otherApps: List<AppInfo>) {
+        rows = buildList {
+            if (selectedApps.isNotEmpty()) {
+                add(Row(sectionTitle = "Seçilen Uygulamalar"))
+                selectedApps.forEach { add(Row(app = it)) }
+            }
+            add(Row(sectionTitle = "Uygulamalar"))
+            otherApps.forEach { add(Row(app = it)) }
+        }
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {
-        val binding = ItemAppLockBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return AppViewHolder(binding)
+    override fun getItemViewType(position: Int): Int =
+        if (rows[position].sectionTitle != null) VIEW_TYPE_SECTION else VIEW_TYPE_APP
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return if (viewType == VIEW_TYPE_SECTION) {
+            SectionViewHolder(inflater.inflate(R.layout.item_apps_section, parent, false))
+        } else {
+            AppViewHolder(ItemAppLockBinding.inflate(inflater, parent, false))
+        }
     }
 
-    override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
-        holder.bind(appsList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val row = rows[position]
+        when (holder) {
+            is SectionViewHolder -> holder.bind(row.sectionTitle.orEmpty())
+            is AppViewHolder -> row.app?.let(holder::bind)
+        }
     }
 
-    override fun getItemCount(): Int = appsList.size
+    override fun getItemCount(): Int = rows.size
+
+    private class SectionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(title: String) {
+            (itemView as TextView).text = title
+        }
+    }
 
     inner class AppViewHolder(private val binding: ItemAppLockBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,11 +63,8 @@ class AppsAdapter(
         fun bind(app: AppInfo) {
             binding.tvAppName.text = app.appName
             binding.tvAppPackage.text = app.packageName
-            if (app.icon != null) {
-                binding.imgAppIcon.setImageDrawable(app.icon)
-            }
+            app.icon?.let(binding.imgAppIcon::setImageDrawable)
 
-            // Remove listeners before setting checked state to avoid trigger loop
             binding.switchLockApp.setOnCheckedChangeListener(null)
             binding.switchMuteNotification.setOnCheckedChangeListener(null)
 
@@ -59,5 +81,10 @@ class AppsAdapter(
                 onMuteToggled(app, isChecked)
             }
         }
+    }
+
+    private companion object {
+        const val VIEW_TYPE_SECTION = 0
+        const val VIEW_TYPE_APP = 1
     }
 }

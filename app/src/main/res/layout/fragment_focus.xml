@@ -41,13 +41,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvFocusHeaderSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tavizsiz Odaklanma Modu"
-                    android:textColor="@color/accent_emerald"
-                    android:textSize="12sp" />
             </LinearLayout>
 
             <!-- Stats Badge -->

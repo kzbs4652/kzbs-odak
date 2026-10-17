@@ -296,11 +296,6 @@ class FocusFragment : Fragment() {
     private fun setupButtons() {
         // Start Focus button
         binding.btnStartFocus.setOnClickListener {
-            if (preferences.isFocusActive) {
-                Toast.makeText(requireContext(), "Odak modu devrede! Bitirmek için alttaki kırmızı butona basın.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             // Check permissions first
             if (!isAccessibilityServiceEnabled(requireContext())) {
                 showPermissionRequiredDialog()
@@ -377,7 +372,7 @@ class FocusFragment : Fragment() {
             binding.tvBigTimer.text = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
 
             binding.tvTimerLabel.text = "KALAN ODAK SÜRESİ"
-            binding.tvTimerDurationDesc.text = "🛡️ Tavizsiz Koruma Devam Ediyor"
+            binding.tvTimerDurationDesc.visibility = View.GONE
             binding.tvFocusStatsBadge.text = "🔥 Aktif"
             binding.tvFocusStatsBadge.setTextColor(resources.getColor(R.color.accent_crimson))
 
@@ -386,8 +381,7 @@ class FocusFragment : Fragment() {
             val progress = (((totalDuration - remaining).toDouble() / totalDuration) * 100).toInt()
             binding.pbFocusProgress.progress = progress
 
-            binding.btnStartFocus.text = "ODAK MODU DEVREDE"
-            binding.btnStartFocus.setBackgroundResource(R.drawable.bg_button_secondary)
+            binding.btnStartFocus.visibility = View.GONE
             binding.btnEndFocus.visibility = View.VISIBLE
             binding.layoutDurationChips.alpha = 0.5f
             binding.etFocusLockMessage.isEnabled = false
@@ -402,12 +396,12 @@ class FocusFragment : Fragment() {
         val mins = selectedDuration % 60
         binding.tvBigTimer.text = String.format(Locale.getDefault(), "%02d:%02d:00", hours, mins)
         binding.tvTimerDurationDesc.text = "$selectedDuration Dakika Derin Odak"
+        binding.tvTimerDurationDesc.visibility = View.VISIBLE
         binding.tvFocusStatsBadge.text = "🌱 Hazır"
         binding.tvFocusStatsBadge.setTextColor(resources.getColor(R.color.accent_emerald))
 
         binding.pbFocusProgress.visibility = View.GONE
-        binding.btnStartFocus.text = getString(R.string.btn_start_focus)
-        binding.btnStartFocus.setBackgroundResource(R.drawable.bg_button_emerald)
+        binding.btnStartFocus.visibility = View.VISIBLE
         binding.btnEndFocus.visibility = View.GONE
         binding.layoutDurationChips.alpha = 1.0f
         binding.etFocusLockMessage.isEnabled = true

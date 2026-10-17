@@ -17,6 +17,7 @@ import com.kzbs.odak.databinding.FragmentAppsBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.Collator
 import java.util.Locale
 
 class AppsFragment : Fragment() {
@@ -48,7 +49,6 @@ class AppsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = AppsAdapter(
-            emptyList(),
             onLockToggled = { app, isLocked ->
                 val current = preferences.blockedApps.toMutableSet()
                 if (isLocked) {
@@ -57,6 +57,7 @@ class AppsFragment : Fragment() {
                     current.remove(app.packageName)
                 }
                 preferences.blockedApps = current
+                filterApps(binding.etSearchApp.text?.toString().orEmpty())
             },
             onMuteToggled = { app, isMuted ->
                 val current = preferences.blockedNotifications.toMutableSet()
@@ -66,6 +67,7 @@ class AppsFragment : Fragment() {
                     current.remove(app.packageName)
                 }
                 preferences.blockedNotifications = current
+                filterApps(binding.etSearchApp.text?.toString().orEmpty())
             }
         )
 
@@ -85,15 +87,17 @@ class AppsFragment : Fragment() {
 
     private fun filterApps(query: String) {
         val trimmed = query.trim().lowercase(Locale.getDefault())
-        if (trimmed.isEmpty()) {
-            adapter.updateData(allApps)
+        val filtered = if (trimmed.isEmpty()) {
+            allApps
         } else {
-            val filtered = allApps.filter {
+            allApps.filter {
                 it.appName.lowercase(Locale.getDefault()).contains(trimmed) ||
                         it.packageName.lowercase(Locale.getDefault()).contains(trimmed)
             }
-            adapter.updateData(filtered)
         }
+        val selectedApps = filtered.filter { it.isLocked || it.isNotificationMuted }
+        val otherApps = filtered.filterNot { it.isLocked || it.isNotificationMuted }
+        adapter.updateData(selectedApps, otherApps)
     }
 
     private fun loadInstalledApps() {
@@ -128,13 +132,14 @@ class AppsFragment : Fragment() {
                 )
             }
 
-            // Sort alphabetically by app name
-            tempList.sortBy { it.appName.lowercase(Locale.getDefault()) }
+            // Keep both sections in Turkish alphabetical order.
+            val appNameCollator = Collator.getInstance(Locale("tr", "TR"))
+            tempList.sortWith { first, second -> appNameCollator.compare(first.appName, second.appName) }
 
             withContext(Dispatchers.Main) {
                 allApps.clear()
                 allApps.addAll(tempList)
-                adapter.updateData(allApps)
+                filterApps("")
             }
         }
     }

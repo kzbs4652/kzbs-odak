@@ -47,7 +47,7 @@
     <string name="filter_games">Oyunlar</string>
     
     <!-- Lock Screen -->
-    <string name="lock_screen_title">TAVİZSİZ ODAK MODU</string>
+    <string name="lock_screen_title">ODAK MODU</string>
     <string name="lock_screen_desc">Bu uygulama KZBS ODAK tarafından kısıtlandı.</string>
     <string name="btn_return_home">MASANIN BAŞINA DÖN</string>
     

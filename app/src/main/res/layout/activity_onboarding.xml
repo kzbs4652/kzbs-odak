@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Tavizsiz odaklanma ile hedeflerinize kilitlenin. Kusursuz koruma için aşağıdaki izinleri tamamlayın."
+                android:text="Odaklanma ile hedeflerinize ulaşın. Başlamak için aşağıdaki izinleri tamamlayın."
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
